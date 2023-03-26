@@ -2,44 +2,49 @@
 
 <body>
 	<div class="container" id="block_container">
+
 		<div class="row" id="block1">
-			<div class="col-lg-8  offset-lg-2">
+			<div>
+				<div class="col-lg-8  offset-lg-2">
 
-				<h2 class="mt-5" style="font-family: 'Song Myung', serif;">E로 쓰는 편지</h2>
-				<h4 style="font-family: 'Song Myung', serif;">손으로 쓴 편지를 여기에서 스캔해 주세요</h4>
-				<img src="{{ url_for('video_feed') }}" height="300px">
+					<h2 class="mt-5" style="font-family: 'Song Myung', serif;">E로 쓰는 편지</h2>
+					<h4 style="font-family: 'Song Myung', serif;">손으로 쓴 편지를 여기에서 스캔해 주세요</h4>
+					<img src="{{ url_for('video_feed') }}" height="300px">
 
-				<form method="post" action="{{ url_for('tasks') }}" class="buttons">
-					<input type="submit" value="Stop/Start" name="stop" />
-					<input type="submit" value="Capture" name="click" />
-					<input type="submit" value="Grey" name="grey" />
-				</form>
+					<form method="post" action="{{ url_for('tasks') }}" class="buttons">
+						<input type="submit" value="Stop/Start" name="stop" />
+						<input type="submit" value="Capture" name="click" />
+						<input type="submit" value="Grey" name="grey" />
+					</form>
+				</div>
 			</div>
 		</div>
 
 		<div id="block2">
-			<h2>스캔한 정보</h2>
-			<form action="mailto:info@w3docs.com" method="get" enctype="text/plain">
-				<div>
-					<label for="name">수신자:
-						<input type="text" name="name" id="name" />
-					</label>
-				</div>
-				<div>
-					<label for="email"> 제목:
-						<input type="text" name="email" id="email" />
-					</label>
-				</div>
-				<div>
-					<textarea name="comments" rows="12" cols="35">텍스트</textarea>
-				</div>
-				<div>
-					<input type="submit" name="submit" value="Send" />
-				</div>
-			</form>
-		</div>
+			<div>
+				<h2>스캔한 정보</h2>
+				<form action="mailto:info@w3docs.com" method="get" enctype="text/plain">
+					<div>
+						<label for="name">수신자:
+							<input type="text" name="name" id="name" />
+						</label>
+					</div>
+					<div>
+						<label for="email"> 제목:
+							<input type="text" name="email" id="email" />
+						</label>
+					</div>
+					<div>
+						<textarea name="comments" rows="12" cols="35">텍스트</textarea>
+					</div>
+					<div>
+						<input type="submit" name="submit" value="Send" />
+					</div>
+				</form>
+				</dviv>
+			</div>
 
-	</div>
+		</div>
 
 
 
@@ -64,7 +69,8 @@
 		width: 100%;
 	}
 
-	#block2 {
+	#block2,
+	#block1 {
 		margin: 100px;
 	}
 </style>
