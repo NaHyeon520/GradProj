@@ -40,7 +40,9 @@ def gen_frames():  # generate frame by frame from camera
                 now = datetime.datetime.now()
                 p = os.path.sep.join(
                     ['shots', "shot_{}.png".format(str(now).replace(":", ''))])
+                img_ori = cv2.imread(p)
                 cv2.imwrite(p, frame)
+                print(img_ori)
 
             try:
                 ret, buffer = cv2.imencode('.jpg', cv2.flip(frame, 1))
