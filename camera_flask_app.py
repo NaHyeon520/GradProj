@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response, request
+from flask import Flask, redirect, url_for, render_template, request, flash, Response
 import cv2
 import datetime
 import time
@@ -6,13 +6,13 @@ import os
 import sys
 import numpy as np
 from threading import Thread
+from image_preprocess import *
 
 
 global capture, rec_frame, grey, switch, neg, face, rec, out
 capture = 0
 grey = 0
 switch = 1
-
 # make shots directory to save pics
 try:
     os.mkdir('./shots')
@@ -40,9 +40,10 @@ def gen_frames():  # generate frame by frame from camera
                 now = datetime.datetime.now()
                 p = os.path.sep.join(
                     ['shots', "shot_{}.png".format(str(now).replace(":", ''))])
-                img_ori = cv2.imread(p)
                 cv2.imwrite(p, frame)
-                print(img_ori)
+                global result
+                result = convert_to_text(p)
+                print(result)
 
             try:
                 ret, buffer = cv2.imencode('.jpg', cv2.flip(frame, 1))
@@ -58,6 +59,7 @@ def gen_frames():  # generate frame by frame from camera
 
 @app.route('/')
 def index():
+
     return render_template('index.html')
 
 
@@ -90,7 +92,8 @@ def tasks():
 
     elif request.method == 'GET':
         return render_template('index.html')
-    return render_template('index.html')
+        # return redirect(url_for('tasks'))
+    return render_template('index.html', result=result)
 
 
 if __name__ == '__main__':
