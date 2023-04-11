@@ -6,10 +6,10 @@ import os
 import sys
 import numpy as np
 from threading import Thread
-from image_preprocess import *
+from sendmail import *
+from convert_to_text import *
 
-
-global capture, rec_frame, grey, switch, neg, face, rec, out
+global capture, rec_frame, grey, switch, neg, face, rec, out, result
 capture = 0
 grey = 0
 switch = 1
@@ -25,6 +25,7 @@ app = Flask(__name__, template_folder='./templates')
 
 camera = cv2.VideoCapture(0)
 
+result = None
 
 def gen_frames():  # generate frame by frame from camera
     global out, capture, rec_frame
@@ -43,8 +44,8 @@ def gen_frames():  # generate frame by frame from camera
                 cv2.imwrite(p, frame)
                 global result
                 result = convert_to_text(p)
-                print(result)
-
+                print(result)                
+                #need to reload the page!!
             try:
                 ret, buffer = cv2.imencode('.jpg', cv2.flip(frame, 1))
                 frame = buffer.tobytes()
@@ -59,7 +60,6 @@ def gen_frames():  # generate frame by frame from camera
 
 @app.route('/')
 def index():
-
     return render_template('index.html')
 
 
@@ -70,7 +70,7 @@ def video_feed():
 
 @app.route('/requests', methods=['POST', 'GET'])  # make responsable buttons
 def tasks():
-    global switch, camera
+    global switch, camera, result
     if request.method == 'POST':
         if request.form.get('click') == 'Capture':
             global capture
@@ -80,24 +80,28 @@ def tasks():
             grey = not grey
 
         elif request.form.get('stop') == 'Stop/Start':  # stop or start the camera
-
             if (switch == 1):
                 switch = 0
                 camera.release()
                 cv2.destroyAllWindows()
-
             else:
                 camera = cv2.VideoCapture(0)
                 switch = 1
-
+        elif request.form.get('submit') == 'Send':
+            global result
+            send_mail(result[0], result[1], result[2], send_pic=False)
     elif request.method == 'GET':
         return render_template('index.html')
         # return redirect(url_for('tasks'))
-    return render_template('index.html', result=result)
+
+    if result is not None:
+        return render_template('index.html', email=result[0], title=result[1], text=result[2])
+    else:
+        return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run('127.0.0.1', port=4000, debug=True)
 
 camera.release()
 cv2.destroyAllWindows()

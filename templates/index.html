@@ -1,6 +1,35 @@
-<link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
+  <style>
+    .mt-5 {
+      font-size: 40px;
+      text-align: center;
+    }
+  
+    .buttons {
+      margin-top: 20px;
+    }
+  
+    #block_container {
+      align-items: center;
+      display: flex;
+      height: 540px;
+      justify-content: center;
+      width: 100%;
+    }
+  
+    #block2,
+    #block1 {
+      margin: 100px;
+    }
+  </style>
+  <title>프로젝트</title>
+</head>
 <body>
 	<div class="container" id="block_container">
 
@@ -10,12 +39,13 @@
 
 					<h2 class="mt-5" style="font-family: 'Song Myung', serif;">E로 쓰는 편지</h2>
 					<h4 style="font-family: 'Song Myung', serif;">손으로 쓴 편지를 여기에서 스캔해 주세요</h4>
-					<img src="{{ url_for('video_feed') }}" height="300px">
+					<img src="http://127.0.0.1:4000/video_feed" height="300px">
 
-					<form method="post" action="{{ url_for('tasks') }}" class="buttons">
+					<form method="post" action="http://127.0.0.1:4000/requests" class="buttons">
 						<input type="submit" value="Stop/Start" name="stop" />
 						<input type="submit" value="Capture" name="click" />
 						<input type="submit" value="Grey" name="grey" />
+						<input type="submit" name="submit" value="Send"/>
 					</form>
 				</div>
 			</div>
@@ -24,55 +54,27 @@
 		<div id="block2">
 			<div>
 				<h2>스캔한 정보</h2>
-				<form action="mailto:info@w3docs.com" method="get" enctype="text/plain">
+				<form method="post" action="http://127.0.0.1:4000/requests" class="buttons" enctype="text/plain">
 					<div>
 						<label for="name">수신자:
-							<input type="text" name="name" id="name" />
+							<input type="text" name="name" id="name">{{email}}
 						</label>
 					</div>
 					<div>
 						<label for="email"> 제목:
-							<input type="text" name="email" id="email" />
+							<input type="email" name="email" id="email">{{title}}
 						</label>
 					</div>
 					<div>
-
-						<text name="comments" rows="12" cols="35">{{result}}</text>
+						<text name="comments" rows="12" cols="35">{{text}}</text>
 					</div>
 					<div>
-						<input type="submit" name="submit" value="Send" />
+						사진을 첨부하시겠습니까?
+						<input type="radio" name="1">예 <input type="radio" name="1">아니오
 					</div>
 				</form>
 				</dviv>
 			</div>
-
 		</div>
-
-
-
-
 </body>
-
-<style>
-	.mt-5 {
-		font-size: 40px;
-		text-align: center;
-	}
-
-	.buttons {
-		margin-top: 20px;
-	}
-
-	#block_container {
-		align-items: center;
-		display: flex;
-		height: 540px;
-		justify-content: center;
-		width: 100%;
-	}
-
-	#block2,
-	#block1 {
-		margin: 100px;
-	}
-</style>
+</html>

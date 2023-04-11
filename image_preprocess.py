@@ -4,7 +4,7 @@ import numpy as np
 import easyocr
 
 
-def convert_to_text(img):
+def image_preprocess(img):
     # 흑백으로 변환
     img_ori = cv2.imread(img)
     height, width, channel = img_ori.shape
@@ -76,9 +76,17 @@ def convert_to_text(img):
     )
     # plt.imshow(img_thresh,cmap='gray')
     # plt.show()
+
+    ###여기서 인식하지 말고 img_thresh를 extract_infos 로 전달
     plt.imsave('processed.png', img_thresh)
+    #return img_thresh
+    return 'processed.png'
+
+
+""" plt.imsave('processed.png', img_thresh)
 
     reader = easyocr.Reader(['ko'])
     filename = "processed.png"
     result = reader.readtext(filename, detail=0)
     return result
+"""
