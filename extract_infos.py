@@ -5,7 +5,7 @@ import easyocr
 
 def extract_infos(processed_img):
     reader = easyocr.Reader(['ko'])
-    textbox = reader.detect(processed_img, width_ths=10)##아마 array상태로 주면 안될거같음. 이미지를 임시로 저장했다가 쓰기?
+    textbox = reader.detect(processed_img, height_ths=1, width_ths=100)
     hor_list=textbox[0]
 
     #email

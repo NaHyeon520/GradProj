@@ -78,9 +78,9 @@ def image_preprocess(img):
     # plt.show()
 
     ###여기서 인식하지 말고 img_thresh를 extract_infos 로 전달
-    plt.imsave('processed.png', img_thresh)
-    #return img_thresh
-    return 'processed.png'
+    #plt.imsave('processed.png', img_thresh)
+    return img_thresh
+    #return 'processed.png'
 
 
 """ plt.imsave('processed.png', img_thresh)

@@ -46,6 +46,7 @@ def gen_frames():  # generate frame by frame from camera
                 result = convert_to_text(p)
                 print(result)                
                 #need to reload the page!!
+                #return render_template('index.html', result=result)#error
             try:
                 ret, buffer = cv2.imencode('.jpg', cv2.flip(frame, 1))
                 frame = buffer.tobytes()
@@ -89,7 +90,7 @@ def tasks():
                 switch = 1
         elif request.form.get('submit') == 'Send':
             global result
-            send_mail(result[0], result[1], result[2], send_pic=False)
+            send_mail(result[0], result[1], result[2], send_pic=False)#사용자가 수정했을 경우 수정한거 넣어야함!!!!
     elif request.method == 'GET':
         return render_template('index.html')
         # return redirect(url_for('tasks'))

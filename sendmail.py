@@ -14,23 +14,25 @@ def send_mail(email, title, info, send_pic=False):#info: string converted from i
     smtp.login('bik48154815@gmail.com', 'cknscchqmsgvalch')
 
     msg = MIMEMultipart()
-    msg['Subject'] = '[2022 후기 졸업과제] 4조 프로젝트 테스트 이메일입니다.'#title
+    msg['Subject'] = title
     content = MIMEText(info)
     msg.attach(content)
+
     '''
-    filepath = "c:/Users/user/Desktop/GradProj-main/GradProj-main/0307.png"
-    with open(filepath, 'rb') as f:
-        part = MIMEBase("application", "octet-stream")
-        part.set_payload(f.read())  
-        encoders.encode_base64(part) 
-        part.add_header('Content-Disposition', 'attachment', filename=filepath)
-        msg.attach(part)
+    if send_pic==True:
+        filepath = "c:/Users/user/Desktop/GradProj-main/GradProj-main/0307.png"#제일 최신거 첨부하도록
+        with open(filepath, 'rb') as f:
+            part = MIMEBase("application", "octet-stream")
+            part.set_payload(f.read())  
+            encoders.encode_base64(part) 
+            part.add_header('Content-Disposition', 'attachment', filename=filepath)
+            msg.attach(part)
     '''
     #addr = '4725hmc@gmail.com'
     # addr = "gbh4815@naver.com"#receiver
     #addr="hgcho@pusan.ac.kr"
-    addr='rlaskgus520@gmail.com'
-    msg["To"] = addr
-    smtp.sendmail("bik48154815@gmail.com", addr, msg.as_string())
+    #addr='rlaskgus520@gmail.com'
+    msg["To"] = email
+    smtp.sendmail("bik48154815@gmail.com", email, msg.as_string())
     print("send success")
     smtp.quit()
